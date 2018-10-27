@@ -27,3 +27,6 @@ Because NYU IT doesn't provide driver installer for GNU/Linux. And with this you
 ```
 $ go get -u github.com/libertylocked/torchprint/cli/torchprint
 ```
+
+## Security
+Currently the CLI stores the base64 encoded `username:password` on disk in the clear. Although there are plans to replace it with session tokens.
