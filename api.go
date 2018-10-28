@@ -1,6 +1,7 @@
 package torchprint
 
 import (
+	"encoding/base64"
 	"net/http"
 	"time"
 
@@ -39,6 +40,12 @@ func (api *API) SetToken(token string) *API {
 func (api *API) SetCredential(credential string) *API {
 	api.credential = credential
 	return api
+}
+
+// SetUserPass set logon credentials from username and password
+func (api *API) SetUserPass(user, pass string) *API {
+	cred := base64.StdEncoding.EncodeToString([]byte(user + ":" + pass))
+	return api.SetCredential(cred)
 }
 
 // Client returns a new sling client
