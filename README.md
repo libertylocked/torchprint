@@ -44,7 +44,7 @@ import (
 func main() {
 	// To get your user ID and token
 	logon, token, _ := torchprint.NewAPI("").SetCredential("username", "password")
-	userID := resp.Identifier // User ID
+	userID := logon.Identifier // User ID
 
 	// To make requests using User ID and Session Token
 	api := torchprint.NewAPI(userID).SetToken(token)
