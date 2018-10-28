@@ -10,14 +10,14 @@ Because NYU IT doesn't provide driver installer for GNU/Linux. And with this you
 
 ## Usage
 - Login
-  - `torchprint init` then follow prompt
+  - `torchprint configure` then follow prompt
 - Add a document (pdf, doc, txt, etc) to printer job queue
-  - `torchprint ./craptoprint.pdf`
-  - `--sides single` or `--sides double`. Default is double
+  - `torchprint add ./craptoprint.pdf`
+  - `--side single` or `--sides double`. Default is double
   - `--color` for color, otherwise monochrome.
-- View printer job queue
+- ~~View printer job queue~~ (coming soon)
   - `torchprint ls`
-- Delete a job from queue
+- ~~Delete a job from queue~~ (coming soon)
   - `torchprint rm <job_d or index_in_queue>`
 - ~~Edit a job in queue~~ (coming soon)
 
@@ -27,6 +27,3 @@ Because NYU IT doesn't provide driver installer for GNU/Linux. And with this you
 ```
 $ go get -u github.com/libertylocked/torchprint/cmd/torchprint
 ```
-
-## Security
-Currently the CLI stores the base64 encoded `username:password` on disk in the clear. Although there are plans to replace it with session tokens.

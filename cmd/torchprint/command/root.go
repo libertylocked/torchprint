@@ -14,8 +14,7 @@ var rootCmd = &cobra.Command{
 	Use:   "torchprint",
 	Short: "torchprint is a printjob manager for campus printing at NYU",
 	Run: func(cmd *cobra.Command, args []string) {
-		// Do Stuff Here
-		fmt.Println("in root cmd")
+		cmd.Help()
 	},
 }
 
@@ -31,8 +30,19 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-	rootCmd.AddCommand(versionCmd)
+
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file")
+	rootCmd.PersistentFlags().StringP("username", "u", "", "Login username")
+	rootCmd.PersistentFlags().StringP("password", "p", "", "Login password")
+	rootCmd.PersistentFlags().String("userid", "",
+		"Pharos user ID (if you don't know yours, run configure command)")
+	rootCmd.PersistentFlags().String("token", "", "Pharos user token")
+	viper.BindPFlag("token", rootCmd.PersistentFlags().Lookup("token"))
+	viper.BindPFlag("userid", rootCmd.PersistentFlags().Lookup("userid"))
+
+	rootCmd.AddCommand(versionCmd)
+	rootCmd.AddCommand(loginCmd)
+	rootCmd.AddCommand(addCmd)
 }
 
 func initConfig() {
@@ -45,11 +55,14 @@ func initConfig() {
 			os.Exit(1)
 		}
 		// look for config in $HOME and $HOME/.config/torchprint
-		viper.AddConfigPath(home)
 		viper.AddConfigPath(path.Join(home, ".config", "torchprint"))
+		viper.AddConfigPath(home)
 		viper.SetConfigType("json")
-		viper.SetConfigName(".torchprint.json")
+		viper.SetConfigName(".torchprint")
 	}
 
-	viper.ReadInConfig()
+	if err := viper.ReadInConfig(); err != nil {
+		// config file not found, but dont panic yet
+		// since token and userid can be supplied in args
+	}
 }
