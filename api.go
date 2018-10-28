@@ -71,6 +71,25 @@ func (api *API) GetJSON(url string, params interface{}, successDat interface{}) 
 		Get(url).
 		QueryStruct(params).
 		ReceiveSuccess(successDat)
+	if err != nil {
+		return nil, err
+	}
+	if resp.StatusCode < 200 || resp.StatusCode > 299 {
+		return resp, errors.NewHTTPError(resp)
+	}
+	return resp, err
+}
+
+// PostJSON posts a JSON and populates a struct with JSON response
+func (api *API) PostJSON(url string, params interface{}, postBody interface{}, successDat interface{}) (*http.Response, error) {
+	resp, err := api.client().
+		Post(url).
+		QueryStruct(params).
+		BodyJSON(postBody).
+		ReceiveSuccess(successDat)
+	if err != nil {
+		return nil, err
+	}
 	if resp.StatusCode < 200 || resp.StatusCode > 299 {
 		return resp, errors.NewHTTPError(resp)
 	}

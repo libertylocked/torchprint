@@ -61,6 +61,22 @@ type PrintJobsResponseData struct {
 	Items            []PrintJobItem `json:"Items"`
 }
 
+// PrintJobDeleteLocation is an entry in delete request array
+type PrintJobDeleteLocation struct {
+	Location string `json:"Location"`
+}
+
+// PrintJobDeleteRequestData is the request data to delete printjobs
+type PrintJobDeleteRequestData struct {
+	PrintJobs []PrintJobDeleteLocation `json:"PrintJobs"`
+}
+
+// PrintJobDeleteStatus the status response of a delete request
+type PrintJobDeleteStatus struct {
+	Location string `json:"Location"`
+	Status   int    `json:"Status"`
+}
+
 type addPrintJobRequestData struct {
 	FinishingOptions struct {
 		Mono            bool   `json:"Mono"`
@@ -137,4 +153,27 @@ func (api *API) AddPrintJob(filename string, options FinishingOptions) (*PrintJo
 	}
 
 	return &respData, nil
+}
+
+// DeletePrintJobs removes printjobs from job queue
+func (api *API) DeletePrintJobs(locations []PrintJobDeleteLocation) ([]*PrintJobDeleteStatus, error) {
+	var respData []*PrintJobDeleteStatus
+
+	// turn array of locations into request
+	reqData := PrintJobDeleteRequestData{
+		PrintJobs: locations,
+	}
+
+	resp, err := api.client().
+		Delete("/PharosAPI/printjobs").
+		BodyJSON(reqData).
+		ReceiveSuccess(&respData)
+	if err != nil {
+		return nil, err
+	}
+	if resp.StatusCode < 200 || resp.StatusCode > 299 {
+		return nil, errors.NewHTTPError(resp)
+	}
+
+	return respData, err
 }
