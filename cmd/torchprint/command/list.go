@@ -30,13 +30,14 @@ var listCmd = &cobra.Command{
 
 		// pretty print jobs
 		w := tabwriter.NewWriter(cmd.OutOrStdout(), 20, 4, 3, ' ', 0)
-		fmt.Fprintln(w, "JOB ID\tNAME\tSUBMISSION TIME")
+		fmt.Fprintln(w, "JOB ID\tNAME\tSUBMISSION TIME\tSTATE")
 		pattern := urlpattern.NewPattern().Path("/printjobs/{jobid}")
 		for _, job := range resp.Items {
 			u, _ := url.Parse(job.Location)
 			matches, _ := pattern.Match(u)
 			fmt.Fprintln(w, matches["jobid"]+"\t"+job.Name+"\t"+
-				job.SubmissionTimeUtc.Local().Format(time.RFC3339))
+				job.SubmissionTimeUtc.Local().Format(time.RFC3339)+"\t"+
+				job.PrintState)
 		}
 		w.Flush()
 	},
