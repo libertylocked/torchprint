@@ -17,9 +17,9 @@ Because NYU IT doesn't provide driver installer for GNU/Linux. And with this you
   - `--color` for color, otherwise monochrome.
 - View printer job queue
   - `torchprint ls`
-- ~~Delete a job from queue~~ (coming soon)
+- Delete a job from queue
   - `torchprint rm [job-id]`
-  - Delete everything with `-a`
+  - Delete everything with `--all`
 - ~~Edit a job in queue~~ (coming soon)
 
 > Don't worry, you can always use `torchprint help`. (And no it won't call the help desk for you)
