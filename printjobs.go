@@ -39,18 +39,18 @@ type PrintJobItem struct {
 		TotalColorPages int `json:"TotalColorPages"`
 		TotalSheets     int `json:"TotalSheets"`
 	} `json:"Stats"`
-	FinishingOptions          FinishingOptions `json:"FinishingOptions"`
-	SupportedFinishingOptions FinishingOptions `json:"SupportedFinishingOptions"`
-	DeviceGroup               string           `json:"DeviceGroup"`
-	PrinterName               string           `json:"PrinterName"`
-	DocumentType              string           `json:"DocumentType"`
-	AllowableActions          string           `json:"AllowableActions"`
-	PrintState                string           `json:"PrintState"` // this is pretty important
-	LastModified              time.Time        `json:"LastModified"`
-	Location                  string           `json:"Location"`
-	RawPageCounterResult      string           `json:"RawPageCounterResult"`
-	SubmissionTimeDelta       float64          `json:"SubmissionTimeDelta"`
-	Cost                      string           `json:"Cost"`
+	FinishingOptions FinishingOptions `json:"FinishingOptions"`
+	// SupportedFinishingOptions FinishingOptions `json:"SupportedFinishingOptions"` // its a bool map, dont need for now
+	DeviceGroup          string    `json:"DeviceGroup"`
+	PrinterName          string    `json:"PrinterName"`
+	DocumentType         string    `json:"DocumentType"`
+	AllowableActions     string    `json:"AllowableActions"`
+	PrintState           string    `json:"PrintState"` // this is pretty important
+	LastModified         time.Time `json:"LastModified"`
+	Location             string    `json:"Location"`
+	RawPageCounterResult string    `json:"RawPageCounterResult"`
+	SubmissionTimeDelta  float64   `json:"SubmissionTimeDelta"`
+	Cost                 string    `json:"Cost"`
 }
 
 // PrintJobsResponseData is the response of view printjob request
@@ -125,7 +125,7 @@ func (api *API) AddPrintJob(filename string, options FinishingOptions) (*PrintJo
 	// finally send the POST
 	writer.Close()
 	var respData PrintJobItem
-	resp, err := api.Client().Body(bodyform).
+	resp, err := api.client().Body(bodyform).
 		Set("Content-Type", writer.FormDataContentType()).
 		Post("/PharosAPI/users/" + api.UserID + "/printjobs").
 		ReceiveSuccess(&respData)

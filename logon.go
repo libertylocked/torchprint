@@ -1,5 +1,9 @@
 package torchprint
 
+import (
+	"github.com/libertylocked/torchprint/errors"
+)
+
 // LogonRequestData is query params of logon request
 type LogonRequestData struct {
 	KeepMeLoggedIn        string `url:"KeepMeLoggedIn"`
@@ -34,91 +38,30 @@ type LogonResponseData struct {
 	OfflineAmount string `json:"OfflineAmount"`
 	OfflineLimit  string `json:"OfflineLimit"`
 	ID            int    `json:"Id"`
-	Privileges    struct {
-		UserAdministration struct {
-			View           string `json:"View"`
-			Update         string `json:"Update"`
-			Delete         string `json:"Delete"`
-			Create         string `json:"Create"`
-			Credit         string `json:"Credit"`
-			Debit          string `json:"Debit"`
-			SetBalance     string `json:"SetBalance"`
-			BlankPassword  string `json:"BlankPassword"`
-			StrongPassword string `json:"StrongPassword"`
-			Supported      string `json:"Supported"`
-		} `json:"UserAdministration"`
-		UserGroupAdministration struct {
-			View   string `json:"View"`
-			Update string `json:"Update"`
-			Delete string `json:"Delete"`
-			Create string `json:"Create"`
-		} `json:"UserGroupAdministration"`
-		Printing struct {
-			Supported    string `json:"Supported"`
-			View         string `json:"View"`
-			WebUpload    string `json:"WebUpload"`
-			Confirmation string `json:"Confirmation"`
-			PayForPrint  struct {
-				Costing           string `json:"Costing"`
-				CostCenters       string `json:"CostCenters"`
-				CreditCardGateway string `json:"CreditCardGateway"`
-				AddFunds          string `json:"AddFunds"`
-			} `json:"PayForPrint"`
-			Administration struct {
-				View               string `json:"View"`
-				Delete             string `json:"Delete"`
-				ChangeChargingUser string `json:"ChangeChargingUser"`
-				Supported          string `json:"Supported"`
-			} `json:"Administration"`
-			ColorPrinting string `json:"ColorPrinting"`
-		} `json:"Printing"`
-		PPCTheme struct {
-			Supported string `json:"Supported"`
-			View      string `json:"View"`
-			Update    string `json:"Update"`
-		} `json:"PPCTheme"`
-		Reports struct {
-			Supported             string `json:"Supported"`
-			CreditCardFundsReport string `json:"CreditCardFundsReport"`
-		} `json:"Reports"`
-		Activity struct {
-			Supported      string `json:"Supported"`
-			View           string `json:"View"`
-			Administration struct {
-				Supported string `json:"Supported"`
-				View      string `json:"View"`
-			} `json:"Administration"`
-		} `json:"Activity"`
-		MobilePrintAdministration struct {
-			Supported string `json:"Supported"`
-			View      string `json:"View"`
-		} `json:"MobilePrintAdministration"`
-		QuotaPrivileges struct {
-			View   string `json:"View"`
-			Update string `json:"Update"`
-		} `json:"QuotaPrivileges"`
-		ManualTransactions struct {
-			Supported string `json:"Supported"`
-			View      string `json:"View"`
-			Create    string `json:"Create"`
-			Update    string `json:"Update"`
-			Delete    string `json:"Delete"`
-		} `json:"ManualTransactions"`
-		Costing string `json:"Costing"`
-	} `json:"Privileges"`
 }
 
-// Logon sends a logon request
-func (api *API) Logon() (*LogonResponseData, error) {
-	var respData LogonResponseData
+// Logon sends a request to get token. Credential must be set in API object
+func (api *API) Logon() (respData *LogonResponseData, token string, err error) {
+	if len(api.credential) == 0 {
+		return nil, "", errors.NoCredentialError{}
+	}
+	// TODO: allow customizing the request
 	queryParams := LogonRequestData{
-		KeepMeLoggedIn:   "yes",
-		IncludePrintJobs: "yes",
+		KeepMeLoggedIn:        "yes",
+		IncludePrintJobs:      "no",
+		IncludeDeviceActivity: "no",
+		IncludePrivileges:     "no",
+		IncludeCostCenters:    "no",
 	}
-
-	_, err := api.GetJSON("/PharosAPI/logon", queryParams, &respData)
+	resp, err := api.GetJSON("/PharosAPI/logon", queryParams, &respData)
 	if err != nil {
-		return nil, err
+		return nil, "", err
 	}
-	return &respData, err
+	// get the token from cookie
+	for _, cookie := range resp.Cookies() {
+		if cookie.Name == "PharosAPI.X-PHAROS-USER-TOKEN" {
+			token = cookie.Value
+		}
+	}
+	return respData, token, err
 }
