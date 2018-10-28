@@ -34,7 +34,6 @@ func (api *API) Client() *sling.Sling {
 			Timeout: time.Second * 10,
 		}).
 		Base(baseURL).
-		Set("accept", "application/json").
 		// XXX: not very secure, maybe replace it with session?
 		Set("X-Authorization", "PHAROS-USER "+api.Credentials).
 		// XXX: user ID is not known before logon, so client should call logon first
@@ -49,7 +48,7 @@ func (api *API) GetJSON(url string, params interface{}, successDat interface{}) 
 		Get(url).
 		QueryStruct(params).
 		ReceiveSuccess(successDat)
-	if resp.StatusCode != http.StatusOK {
+	if resp.StatusCode < 200 && resp.StatusCode > 299 {
 		return resp, errors.NewHTTPError(resp)
 	}
 	return resp, err
