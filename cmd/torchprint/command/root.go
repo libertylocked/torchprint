@@ -1,4 +1,4 @@
-package cmd
+package command
 
 import (
 	"fmt"
@@ -21,7 +21,7 @@ var rootCmd = &cobra.Command{
 
 var cfgFile string
 
-// Execute runs the root command
+// Execute runs root command
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
