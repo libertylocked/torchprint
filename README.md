@@ -15,7 +15,7 @@ Because NYU IT doesn't provide driver installer for GNU/Linux. And with this you
   - `torchprint add ./craptoprint.pdf`
   - `--side single` or `--sides double`. Default is double
   - `--color` for color, otherwise monochrome.
-- ~~View printer job queue~~ (coming soon)
+- View printer job queue
   - `torchprint ls`
 - ~~Delete a job from queue~~ (coming soon)
   - `torchprint rm <job_d or index_in_queue>`
