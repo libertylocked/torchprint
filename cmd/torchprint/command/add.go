@@ -10,8 +10,9 @@ import (
 )
 
 var addCmd = &cobra.Command{
-	Use:   "add",
-	Short: "Add a document to printing queue",
+	Use:     "add",
+	Aliases: []string{"a"},
+	Short:   "Add a document to printing queue",
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 0 {
 			cmd.Println("Please specify a file to print! Use \"torchprint add [filename] [options]\"")

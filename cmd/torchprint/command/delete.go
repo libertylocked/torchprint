@@ -11,15 +11,18 @@ var deleteCmd = &cobra.Command{
 	Aliases: []string{"rm"},
 	Short:   "Delete a job from printjob queue",
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) == 0 {
-			cmd.Println("Please the ID of the job to delete! Use \"torchprint rm [job-id]\"")
-			os.Exit(1)
-		}
 		// TODO: finish this when API lib is updated
-		// jobID := args[0]
 
 		// userid := viper.GetString("userid")
 		// token := viper.GetString("token")
+		delAll, _ := cmd.LocalFlags().GetBool("all")
+		if !delAll {
+			if len(args) == 0 {
+				cmd.Println("Please the ID of the job to delete! Use \"torchprint rm [job-id]\"")
+				os.Exit(1)
+			}
+		}
+		// jobID := args[0]
 
 		// api := torchprint.NewAPI(userid).SetToken(token)
 		// resp, err := api.DeletePrintJob()
@@ -28,4 +31,8 @@ var deleteCmd = &cobra.Command{
 		// 	os.Exit(1)
 		// }
 	},
+}
+
+func init() {
+	deleteCmd.Flags().BoolP("all", "-a", false, "Delete all jobs")
 }
