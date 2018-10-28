@@ -30,6 +30,7 @@ Because NYU IT doesn't provide driver installer for GNU/Linux. And with this you
 ## Building
 ```
 $ go get -u github.com/libertylocked/torchprint/cmd/torchprint
+$ $GOPATH/bin/torchprint version
 ```
 
 # Library
