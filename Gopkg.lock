@@ -61,6 +61,14 @@
   version = "v1.0"
 
 [[projects]]
+  branch = "master"
+  digest = "1:654735a750a5d714e5dd16d74bd7958519294d780c49ead561bfece8774323ce"
+  name = "github.com/libertylocked/urlpattern"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "72b487d5dfd69b0a1b248849a30793a02da23b50"
+
+[[projects]]
   digest = "1:c568d7727aa262c32bdf8a3f7db83614f7af0ed661474b24588de635c20024c7"
   name = "github.com/magiconair/properties"
   packages = ["."]
@@ -191,6 +199,7 @@
   input-imports = [
     "github.com/dghubble/sling",
     "github.com/howeyc/gopass",
+    "github.com/libertylocked/urlpattern",
     "github.com/mitchellh/go-homedir",
     "github.com/spf13/cobra",
     "github.com/spf13/viper",

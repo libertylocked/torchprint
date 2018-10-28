@@ -13,6 +13,12 @@ var addCmd = &cobra.Command{
 	Use:   "add",
 	Short: "Add a document to printing queue",
 	Run: func(cmd *cobra.Command, args []string) {
+		if len(args) == 0 {
+			cmd.Println("Please specify a file to print! Use \"torchprint add [filename] [options]\"")
+			os.Exit(1)
+		}
+		filename := args[0]
+
 		userid := viper.GetString("userid")
 		token := viper.GetString("token")
 		color, _ := cmd.LocalFlags().GetBool("color")
@@ -20,11 +26,6 @@ var addCmd = &cobra.Command{
 		perSide, _ := cmd.LocalFlags().GetInt("perside")
 		copies, _ := cmd.LocalFlags().GetInt("copies")
 		pageRange, _ := cmd.LocalFlags().GetString("range")
-		if len(args) == 0 {
-			cmd.Println("Please specify a file to print! Use \"torchprint add [filename] [options]\"")
-			os.Exit(1)
-		}
-		filename := args[0]
 
 		api := torchprint.NewAPI(userid).SetToken(token)
 		options := torchprint.FinishingOptions{
