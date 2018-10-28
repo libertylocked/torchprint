@@ -1,6 +1,6 @@
 torchprint
 ---
-CLI and library to manage your printer job queue at NYU.
+CLI and library to manage your printer job queue at NYU (for GNU/Linux, Windows, MacOS)
 
 > Disclaimer: this project is not affiliated or endorsed by NYU.
 
