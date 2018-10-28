@@ -34,5 +34,5 @@ var deleteCmd = &cobra.Command{
 }
 
 func init() {
-	deleteCmd.Flags().BoolP("all", "-a", false, "Delete all jobs")
+	deleteCmd.Flags().BoolP("all", "a", false, "Delete all jobs")
 }
