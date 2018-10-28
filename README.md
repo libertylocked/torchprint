@@ -55,7 +55,7 @@ func main() {
 	// View all printjobs in queue
 	api.GetPrintJobs()
 	// Upload a document and create a printjob
-	api.AddPrintJob("/home/liberty/Documents/pirated_textbook.pdf", FinishingOptions{
+	api.AddPrintJob("/home/liberty/Documents/pirated_textbook.pdf", torchprint.FinishingOptions{
 		Mono:            true,
 		Duplex:          true,
 		PagesPerSide:    1,

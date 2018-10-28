@@ -35,7 +35,7 @@ func init() {
 	rootCmd.PersistentFlags().StringP("username", "u", "", "Login username")
 	rootCmd.PersistentFlags().StringP("password", "p", "", "Login password")
 	rootCmd.PersistentFlags().String("userid", "",
-		"Pharos user ID (if you don't know yours, run configure command)")
+		"Pharos user ID (if you don't know yours, run the login command)")
 	rootCmd.PersistentFlags().String("token", "", "Pharos user token")
 	viper.BindPFlag("token", rootCmd.PersistentFlags().Lookup("token"))
 	viper.BindPFlag("userid", rootCmd.PersistentFlags().Lookup("userid"))
