@@ -50,6 +50,9 @@ var loginCmd = &cobra.Command{
 		if rememberMe {
 			viper.Set("username", user)
 			viper.Set("password", pass)
+		} else {
+			viper.Set("username", "")
+			viper.Set("password", "")
 		}
 		home, _ := homedir.Dir()
 		configFolder := path.Join(home, ".config", "torchprint")

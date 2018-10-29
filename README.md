@@ -9,8 +9,6 @@ CLI and library to manage your printer job queue in Pharos Print Center (for GNU
 
 # CLI
 
-![screenshot-of-cli-in-gnome-terminal](images/screen1.png)
-
 ## Why
 Because there's no Pharos Popup installer for GNU/Linux. (also it's proprietary)
 
@@ -29,6 +27,24 @@ Because there's no Pharos Popup installer for GNU/Linux. (also it's proprietary)
 - ~~Edit a job in queue~~ (coming soon)
 
 > Don't worry, you can always use `torchprint help`. (And no it won't call the help desk for you)
+
+## Example
+```
+$ torchprint login
+Enter username: johndoe
+Enter password:
+success: userid deadbeef balance 4.20
+
+$ torchprint add pirated_textbook.pdf
+success: /printjobs/c29tZXRoaW5nLXlvdS13YW50LXRvLXByaW50LW1heWJlLXBpcmF0ZWQtc3R1ZmY= pirated_textbook.pdf Queued
+
+$ torchprint ls
+JOB ID                                                             NAME                SUBMISSION TIME             STATE
+c29tZXRoaW5nLXlvdS13YW50LXRvLXByaW50LW1heWJlLXBpcmF0ZWQtc3R1ZmY=   test.txt            2018-10-29T18:12:07-04:00   Queued
+
+$ torchprint rm c29tZXRoaW5nLXlvdS13YW50LXRvLXByaW50LW1heWJlLXBpcmF0ZWQtc3R1ZmY=
+/printjobs/c29tZXRoaW5nLXlvdS13YW50LXRvLXByaW50LW1heWJlLXBpcmF0ZWQtc3R1ZmY= 200
+```
 
 ## Building
 ```
