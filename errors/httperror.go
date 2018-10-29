@@ -13,7 +13,8 @@ type HTTPError struct {
 }
 
 func (e HTTPError) Error() string {
-	return fmt.Sprintf("HTTP error %v. %v", e.StatusCode, string(e.Body))
+	return fmt.Sprintf("HTTP error %v %v. %v", e.StatusCode,
+		http.StatusText(e.StatusCode), string(e.Body))
 }
 
 // NewHTTPError returns an HTTP error with status code

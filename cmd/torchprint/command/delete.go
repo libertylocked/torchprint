@@ -6,7 +6,6 @@ import (
 	"github.com/libertylocked/torchprint"
 
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 var deleteCmd = &cobra.Command{
@@ -14,11 +13,9 @@ var deleteCmd = &cobra.Command{
 	Aliases: []string{"rm"},
 	Short:   "Delete a job from printjob queue",
 	Run: func(cmd *cobra.Command, args []string) {
-		userid := viper.GetString("userid")
-		token := viper.GetString("token")
 		delAll, _ := cmd.LocalFlags().GetBool("all")
 
-		api := torchprint.NewAPI(userid).SetToken(token)
+		api := newAPI()
 		deleteLocations := []torchprint.PrintJobDeleteLocation{}
 
 		if delAll {

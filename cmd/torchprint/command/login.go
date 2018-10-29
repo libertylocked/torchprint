@@ -21,6 +21,8 @@ var loginCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		user, _ := cmd.Flags().GetString("username")
 		pass, _ := cmd.Flags().GetString("password")
+		rememberMe, _ := cmd.LocalFlags().GetBool("save")
+
 		if len(user) == 0 {
 			reader := bufio.NewReader(os.Stdin)
 			// ask username in stdin
@@ -45,15 +47,27 @@ var loginCmd = &cobra.Command{
 		// save to config
 		viper.Set("userid", userid)
 		viper.Set("token", token)
+		if rememberMe {
+			viper.Set("username", user)
+			viper.Set("password", pass)
+		}
 		home, _ := homedir.Dir()
 		configFolder := path.Join(home, ".config", "torchprint")
 		os.MkdirAll(configFolder, os.ModePerm)
 		err = viper.WriteConfigAs(path.Join(configFolder, ".torchprint.json"))
 		if err != nil {
 			cmd.Println("warning: failed to write config!", err)
+		} else {
+			if rememberMe {
+				cmd.Println("warning: username and password are saved in config file, which can be a security risk")
+			}
 		}
 
 		// print id to screen
 		cmd.Println("success: userid", userid, "balance", resp.Balance.Amount)
 	},
+}
+
+func init() {
+	loginCmd.Flags().BoolP("save", "s", false, "Save username and password")
 }

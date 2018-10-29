@@ -8,10 +8,8 @@ import (
 
 	"text/tabwriter"
 
-	"github.com/libertylocked/torchprint"
 	"github.com/libertylocked/urlpattern"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 var listCmd = &cobra.Command{
@@ -19,9 +17,7 @@ var listCmd = &cobra.Command{
 	Aliases: []string{"ls"},
 	Short:   "List jobs in printjob queue",
 	Run: func(cmd *cobra.Command, args []string) {
-		userid := viper.GetString("userid")
-		token := viper.GetString("token")
-		api := torchprint.NewAPI(userid).SetToken(token)
+		api := newAPI()
 		resp, err := api.GetPrintJobs()
 		if err != nil {
 			cmd.Println(err)

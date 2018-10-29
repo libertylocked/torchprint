@@ -72,3 +72,15 @@ func main() {
 None ;)
 
 # FAQ
+
+Can I use it for my school?
+> It has not been tested outside NYU, but if your school uses Pharos, chances are it will work. Just fork it and change the `baseURL` in `api.go`.
+
+Can I save my username and password so I don't have to login every time?
+> It is not recommended for security reasons, but yes you can.
+> Run login command with `--save` will save your username and password in cleartext in config file.
+
+Where is config the file?
+> It is stored in one of the two places
+> - `$HOME/.config/torchprint/.torchprint.json`
+> - `$HOME/.torchprint.json`

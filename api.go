@@ -35,8 +35,7 @@ func (api *API) SetToken(token string) *API {
 	return api
 }
 
-// SetCredential set logon credentials. This is less secure than token, therefore
-// it won't be used if token is set
+// SetCredential set logon credentials
 func (api *API) SetCredential(credential string) *API {
 	api.credential = credential
 	return api

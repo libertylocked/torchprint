@@ -6,7 +6,6 @@ import (
 	"github.com/libertylocked/torchprint"
 
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 var addCmd = &cobra.Command{
@@ -20,15 +19,13 @@ var addCmd = &cobra.Command{
 		}
 		filename := args[0]
 
-		userid := viper.GetString("userid")
-		token := viper.GetString("token")
 		color, _ := cmd.LocalFlags().GetBool("color")
 		side, _ := cmd.LocalFlags().GetString("side")
 		perSide, _ := cmd.LocalFlags().GetInt("perside")
 		copies, _ := cmd.LocalFlags().GetInt("copies")
 		pageRange, _ := cmd.LocalFlags().GetString("range")
 
-		api := torchprint.NewAPI(userid).SetToken(token)
+		api := newAPI()
 		options := torchprint.FinishingOptions{
 			Mono: !color,
 			Duplex: func() bool {
