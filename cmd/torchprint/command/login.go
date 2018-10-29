@@ -15,8 +15,9 @@ import (
 )
 
 var loginCmd = &cobra.Command{
-	Use:   "login",
-	Short: "Log into printing with username and password",
+	Use:     "login",
+	Aliases: []string{"logon"},
+	Short:   "Log into printing with username and password",
 	Run: func(cmd *cobra.Command, args []string) {
 		user, _ := cmd.Flags().GetString("username")
 		pass, _ := cmd.Flags().GetString("password")
