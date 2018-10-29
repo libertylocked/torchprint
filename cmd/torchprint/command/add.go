@@ -48,7 +48,7 @@ var addCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		cmd.Println("success:", resp.Location, resp.PrintState, resp.Name)
+		cmd.Println("success:", resp.Location, resp.Name, resp.PrintState)
 	},
 }
 
