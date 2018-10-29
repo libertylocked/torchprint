@@ -1,15 +1,18 @@
 torchprint
 ---
-CLI and library to manage your printer job queue at NYU (for GNU/Linux, Windows, MacOS)
+CLI and library to manage your printer job queue in Pharos Print Center (for GNU/Linux, Windows, MacOS)
 
-> Disclaimer: this project is not affiliated or endorsed by NYU.
+> Disclaimer: this project is not affiliated or endorsed by NYU or Pharos.
+>
+> The API is reverse engineered from NYU Pharos Print Center web interface and may not work on all Pharos Print Center systems.
+> (it's fair use)
 
 # CLI
 
 ![screenshot-of-cli-in-gnome-terminal](images/screen1.png)
 
 ## Why
-Because NYU IT doesn't provide driver installer for GNU/Linux. And with this you can also send docs to printer job queue directly from terminal.
+Because there's no Pharos Popup installer for GNU/Linux. (also it's proprietary)
 
 ## Usage
 - Login
@@ -67,3 +70,5 @@ func main() {
 
 ## API Documentation
 None ;)
+
+# FAQ
