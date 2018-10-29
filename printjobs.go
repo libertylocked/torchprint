@@ -92,7 +92,7 @@ type addPrintJobRequestData struct {
 func (api *API) GetPrintJobs() (*PrintJobsResponseData, error) {
 	var respData PrintJobsResponseData
 
-	_, err := api.GetJSON("/PharosAPI/users/"+api.UserID+"/printjobs", nil, &respData)
+	_, err := api.GetJSON("users/"+api.UserID+"/printjobs", nil, &respData)
 	if err != nil {
 		return nil, err
 	}
@@ -143,7 +143,7 @@ func (api *API) AddPrintJob(filename string, options FinishingOptions) (*PrintJo
 	var respData PrintJobItem
 	resp, err := api.client().Body(bodyform).
 		Set("Content-Type", writer.FormDataContentType()).
-		Post("/PharosAPI/users/" + api.UserID + "/printjobs").
+		Post("users/" + api.UserID + "/printjobs").
 		ReceiveSuccess(&respData)
 	if err != nil {
 		return nil, err
@@ -165,7 +165,7 @@ func (api *API) DeletePrintJobs(locations []PrintJobDeleteLocation) ([]*PrintJob
 	}
 
 	resp, err := api.client().
-		Delete("/PharosAPI/printjobs").
+		Delete("printjobs").
 		BodyJSON(reqData).
 		ReceiveSuccess(&respData)
 	if err != nil {

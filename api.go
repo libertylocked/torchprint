@@ -19,7 +19,7 @@ type API struct {
 
 const (
 	// TODO: possibly support other schools using pharos?
-	baseURL = "https://mobileprint.nyu.edu"
+	baseURL = "https://mobileprint.nyu.edu/PharosAPI/"
 )
 
 // NewAPI returns a new print API

@@ -53,7 +53,7 @@ func (api *API) Logon() (respData *LogonResponseData, token string, err error) {
 		IncludePrivileges:     "no",
 		IncludeCostCenters:    "no",
 	}
-	resp, err := api.GetJSON("/PharosAPI/logon", queryParams, &respData)
+	resp, err := api.GetJSON("logon", queryParams, &respData)
 	if err != nil {
 		return nil, "", err
 	}
