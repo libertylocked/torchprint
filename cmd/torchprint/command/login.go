@@ -53,6 +53,6 @@ var loginCmd = &cobra.Command{
 		}
 
 		// print id to screen
-		cmd.Println("success: userid", userid)
+		cmd.Println("success: userid", userid, "balance", resp.Balance.Amount)
 	},
 }
