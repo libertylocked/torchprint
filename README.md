@@ -50,7 +50,7 @@ func main() {
 	// To make requests using User ID and Session Token
 	api := torchprint.NewAPI(userID).SetToken(token)
 	// You can also make requests using User ID and Username:Password (instead of token)
-	// api := torchprint.NewAPI(userID).SetCredentail("username", "password")
+	// api := torchprint.NewAPI(userID).SetCredential("username", "password")
 
 	// View all printjobs in queue
 	api.GetPrintJobs()
