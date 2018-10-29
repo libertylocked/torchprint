@@ -44,7 +44,7 @@ Can I save my username and password so I don't have to login every time?
 > It is not recommended for security reasons, but yes you can.
 > Run login command with `--save` will save your username and password in cleartext in config file.
 
-Where is config the file?
+Where is config file stored?
 > It is stored in one of the two places
 > - `$HOME/.config/torchprint/.torchprint.json`
 > - `$HOME/.torchprint.json`
