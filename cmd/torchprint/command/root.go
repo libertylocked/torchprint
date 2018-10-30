@@ -47,6 +47,7 @@ func init() {
 	rootCmd.AddCommand(addCmd)
 	rootCmd.AddCommand(listCmd)
 	rootCmd.AddCommand(deleteCmd)
+	rootCmd.AddCommand(historyCmd)
 }
 
 func initConfig() {
