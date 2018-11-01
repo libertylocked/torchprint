@@ -31,10 +31,7 @@ type TransactionResponseData struct {
 
 // GetTransactions returns transaction history
 func (api *API) GetTransactions(skip, pageSize int) (*TransactionResponseData, error) {
-	params := struct {
-		Skip     int `url:"Skip,omitempty"`
-		PageSize int `url:"PageSize,omitempty"`
-	}{
+	params := pagedRequest{
 		Skip:     skip,
 		PageSize: pageSize,
 	}
