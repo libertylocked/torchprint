@@ -8,6 +8,6 @@ var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Print the version number of torchprint",
 	Run: func(cmd *cobra.Command, args []string) {
-		cmd.Println("torchprint v0.1 -- HEAD")
+		cmd.Println("torchprint v0.1.0")
 	},
 }
